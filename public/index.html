@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SOS Meet Web</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loginView" class="center">
+    <div class="card">
+      <h1>SOS Meet</h1>
+      <p class="muted">Desktop web prototype (Meet-style calls + Group alarms)</p>
+      <input id="usernameInput" placeholder="Enter username (e.g. valeria)" />
+      <button id="loginBtn">Login</button>
+      <p class="muted tiny">Camera/mic works on localhost or HTTPS deployments.</p>
+    </div>
+  </div>
+
+  <div id="appView" class="app hidden">
+    <header class="topbar">
+      <div class="brand">SOS Meet</div>
+      <div class="me">
+        <span id="meLabel"></span>
+        <button id="enableAlertsBtn" class="ghost">Enable Alerts (sound)</button>
+      </div>
+    </header>
+
+    <div class="main">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>Friends</h2>
+          <div class="row">
+            <input id="friendInput" placeholder="Add friend by username" />
+            <button id="addFriendBtn">Add</button>
+          </div>
+          <div id="friendsList" class="list"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Groups</h2>
+          <div class="row">
+            <input id="groupNameInput" placeholder="New group name" />
+            <button id="createGroupBtn">Create</button>
+          </div>
+          <div id="groupsList" class="list"></div>
+        </section>
+
+        <section class="panel hidden" id="groupPanel">
+          <h2 id="groupTitle">Group</h2>
+
+          <div class="subpanel">
+            <h3>Members</h3>
+            <div class="row">
+              <select id="memberSelect"></select>
+              <button id="addMemberBtn">Add</button>
+            </div>
+            <div id="membersList" class="chips"></div>
+          </div>
+
+          <div class="subpanel">
+            <h3>Alarm Codes</h3>
+            <div id="codesList" class="codes"></div>
+
+            <details class="createCode">
+              <summary>Create alarm code</summary>
+              <div class="grid2">
+                <input id="codeTitleInput" placeholder="Title (SOS / Pick me up)" />
+                <select id="codeModeInput">
+                  <option value="CALL_LIKE">CALL_LIKE (Meet-style)</option>
+                  <option value="MESSAGE">MESSAGE</option>
+                  <option value="NOTIFICATION">NOTIFICATION</option>
+                </select>
+                <input id="codeColorInput" type="color" value="#ff2d2d" />
+                <select id="codeSoundInput">
+                  <option value="sos">sos</option>
+                  <option value="ping">ping</option>
+                  <option value="soft">soft</option>
+                </select>
+                <input id="codeMessageInput" placeholder="Message text (optional)" />
+                <button id="createCodeBtn">Save Code</button>
+              </div>
+            </details>
+          </div>
+
+          <div class="subpanel">
+            <h3>Meet Call</h3>
+            <button id="joinCallBtn" class="primary">Join Group Call</button>
+            <button id="leaveCallBtn" class="ghost hidden">Leave Call</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="callArea">
+        <div class="callHeader">
+          <div>
+            <div class="callTitle" id="callTitle">Not in a call</div>
+            <div class="muted tiny" id="callSubtitle">Select a group and join call.</div>
+          </div>
+          <div class="callActions">
+            <button id="toggleMicBtn" class="pill" disabled>Mic</button>
+            <button id="toggleCamBtn" class="pill" disabled>Cam</button>
+            <button id="shareBtn" class="pill" disabled>Share</button>
+          </div>
+        </div>
+
+        <div id="videoGrid" class="videoGrid"></div>
+
+        <div class="bottomBar">
+          <button id="hangupBtn" class="danger hidden">Hang up</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="alarmOverlay" class="alarmOverlay hidden">
+    <div class="alarmCard">
+      <div class="alarmTitle" id="alarmTitle">SOS</div>
+      <div class="alarmMeta" id="alarmMeta"></div>
+      <div class="alarmMsg" id="alarmMsg"></div>
+
+      <div class="alarmBtns">
+        <button id="alarmOpenBtn" class="primary">Open</button>
+        <button id="alarmDismissBtn" class="ghost">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
